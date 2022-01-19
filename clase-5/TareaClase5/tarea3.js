@@ -1,13 +1,10 @@
-/*
-const $horas = document.querySelectorAll('#horas')
-
-
-for (let i = 0;i<$horas.length;i++){
-    console.log($horas[i].value)
-}
-
-//document.querySelectorAll('#horas')[1].value
-*/
+//TAREA: En otro archivo distinto,
+// Por cada clase de r/argentina programa existente, vamos a pedir:
+// horas, minutos y segundos de cada video. Ej. Si un video dura
+// 2 horas, 38 minutos y 20 segundos, vamos a rellenar 3 campos de texto con
+// cada dato.
+// al apretar el botón "Calcular tiempo total", debe mostrar en un
+// <strong> pre-creado el tiempo total de los videos.
 
 document.querySelector('#siguiente-paso').onclick = function(event) {
     const $cantidadClases = document.querySelector('#cantidad-clases');
@@ -24,7 +21,7 @@ document.querySelector('#resetear').onclick = resetear;
 function crearClases(cantidadClases) {
 
     if (cantidadClases > 0) {
-      mostrarBotonCalculo();
+      mostrar('#calcular');
     } else {
       resetear();
     }
@@ -65,6 +62,42 @@ function crearClase(indice) {
     $clases.appendChild($div);
 }
 
+document.querySelector('#calcular').onclick = function(event) {
+    const segundos = obtenerTiempo('.segundos')
+    const minutos = obtenerTiempo('.minutos')
+    const horas = obtenerTiempo('.horas')
+    const tiempoFinal = calcularTiempoFinal(horas,minutos,segundos)
+
+    document.querySelector('#tiempo-total').textContent = tiempoFinal
+
+    mostrar('#totales')
+}
+
+function obtenerTiempo(id){
+  const $tiempoObtenido = document.querySelectorAll('.clase ' + id)
+  let tiempo = 0
+
+  for (let i=0;i < $tiempoObtenido.length;i++){
+      tiempo += Number($tiempoObtenido[i].value)
+  }
+
+  return tiempo.toFixed(2)
+}
+
+function calcularTiempoFinal (horas,minutos,segundos){
+    const minutosCompletos = Math.trunc(segundos / 60);
+    const segundosRestantes = segundos % 60; 
+
+    const horasCompletas = Math.trunc(minutos / 60);
+    const minutosRestantes = minutos % 60; 
+
+    const horasFinal = horasCompletas + Number(horas)
+    const minutosFinal = minutosCompletos + minutosRestantes
+    const segundosFinal = segundosRestantes
+
+    return horasFinal + 'hs ' + minutosFinal + 'min ' + segundosFinal + 'seg '
+}
+
 function borrarClasesAnteriores() {
   const $clases = document.querySelectorAll('.clase');
   for (let i = 0; i < $clases.length; i++) {
@@ -73,112 +106,17 @@ function borrarClasesAnteriores() {
 }
 
 function resetear() {
-  borrarClasesAnteriores();
-  ocultarBotonCalculo();
-  ocultarResultados();
+  borrarClasesAnteriores()
+  ocultar('#calcular')
+  ocultar('#totales')
 }
 
-function ocultarBotonCalculo() {
-  document.querySelector('#calcular').style.display = 'none';
-}
-  
-function mostrarBotonCalculo() {
-  document.querySelector('#calcular').style.display = '';
-}
-  
-function ocultarResultados() {
-  document.querySelector('#totales').style.display = 'none';
-}
-  
-function mostrarResultados() {
-  document.querySelector('#totales').style.display = '';
+function ocultar(id) {
+  document.querySelector(id).style.display = 'none'
 }
 
-document.querySelector('#calcular').onclick = function(event) {
-    const segundos = obtenerSegundos();
-    const minutos = obtenerMinutos()
-    const horas = obtenerHoras()
-    const tiempoFinal = calcularTiempoFinal(horas,minutos,segundos)
-
-    mostrarResultados()
-
-    document.querySelector('#tiempo-total').textContent = tiempoFinal
-
-    event.preventDefault();
-};
-
-//Math.trunc(x) -- > me quedo solo con el numero entero
-//var decimal = n - Math.floor(n) --> Obtengo parte decimal
-
-function calcularTiempoFinal (horas,minutos,segundos){
-    let horasFinal = 0
-    let minutosFinal = 0
-    let segundosFinal = 0
-    let tiempoTotal = 0
-
-    if (segundos > 60){
-        let segundosParcial = segundos / 60
-        minutosFinal = Math.trunc(segundosParcial)
-        segundosFinal = Math.round((segundosParcial - minutosFinal)*60)
-        
-    } else {
-        segundosFinal = Math.trunc(segundos)
-    }
-
-    if ((Number(minutos) + Number(minutosFinal)) > 60){
-        let minutosParcial = (Number(minutos) + Number(minutosFinal)) / 60
-        horasFinal = Math.trunc(minutosParcial)
-        minutosFinal = Math.round((minutosParcial - horasFinal)*60)
-        
-    } else {
-        minutosFinal = Math.trunc(minutos)
-    }
-
-    if (horasFinal === 0){
-        horasFinal = Math.trunc(Number(horas))
-    } else {
-        let horaParcial = horasFinal
-        horasFinal = horaParcial + Number(horas)
-    }
-    
-    return tiempoTotal = horasFinal + 'hs ' + minutosFinal + 'min ' + segundosFinal + 'seg '
-
+function mostrar(id) {
+  document.querySelector(id).style.display = ''
 }
 
-
-
-
-function obtenerSegundos(){
-    const $segundos = document.querySelectorAll('.clase .segundos')
-    let segundosTotales = 0
-
-    for (let i=0;i < $segundos.length;i++){
-        segundosTotales += Number($segundos[i].value)
-    }
-
-    return segundosTotales.toFixed(2)
-
-}
-
-function obtenerMinutos(){
-    const $minutos = document.querySelectorAll('.clase .minutos')
-    let minutosTotales = 0
-
-    for (let i=0;i < $minutos.length;i++){
-        minutosTotales += Number($minutos[i].value)
-    }
-
-    return minutosTotales.toFixed(2)
-}
-
-function obtenerHoras(){
-    const $horas = document.querySelectorAll('.clase .horas')
-    let horasTotales = 0
-
-    for (let i=0;i < $horas.length;i++){
-        horasTotales += Number($horas[i].value)
-    }
-
-    return horasTotales.toFixed(2)
-}
 
