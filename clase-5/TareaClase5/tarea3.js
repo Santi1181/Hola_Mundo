@@ -73,12 +73,12 @@ document.querySelector('#calcular').onclick = function(event) {
     mostrar('#totales')
 }
 
-function obtenerTiempo(id){
-  const $tiempoObtenido = document.querySelectorAll('.clase ' + id)
+function obtenerTiempo(selector){
+  const $tiemposObtenidos = document.querySelectorAll('.clase ' + selector)
   let tiempo = 0
 
-  for (let i=0;i < $tiempoObtenido.length;i++){
-      tiempo += Number($tiempoObtenido[i].value)
+  for (let i=0;i < $tiemposObtenidos.length;i++){
+      tiempo += Number($tiemposObtenidos[i].value)
   }
 
   return tiempo.toFixed(2)
@@ -111,12 +111,12 @@ function resetear() {
   ocultar('#totales')
 }
 
-function ocultar(id) {
-  document.querySelector(id).style.display = 'none'
+function ocultar(selector) {
+  document.querySelector(selector).style.display = 'none'
 }
 
-function mostrar(id) {
-  document.querySelector(id).style.display = ''
+function mostrar(selector) {
+  document.querySelector(selector).style.display = ''
 }
 
 
