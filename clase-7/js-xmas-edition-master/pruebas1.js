@@ -1,12 +1,12 @@
 function probarValidarNombre (){
     console.assert(
-        validarNombre('') === 'Este campo debe tener al menos un caracter', 
+        validarNombre('') === 'Debe completar la carta con un Nombre', 
         'validarNombre no validó un string vacío'
     )
 
     console.assert(
         validarNombre('1111111111111111111111111111111111111111111111111111111111111111111111') === 
-        'Este campo debe tener menos de 50 caracteres', 'validarNombre no validó un string con mas de 50 caracteres'
+        'El nombre debe tener menos de 50 caracteres', 'validarNombre no validó un string con mas de 50 caracteres'
     )
 
     console.assert(

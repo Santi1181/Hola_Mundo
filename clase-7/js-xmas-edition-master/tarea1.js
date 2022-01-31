@@ -25,17 +25,79 @@
    - comportamiento
    - descripcionRegalo
 */   
-const $form = document.querySelector('#carta-a-santa');
 
-const nombre = $form.nombre.value;
-const ciudad = $form.ciudad.value;
-const comportamiento = $form.comportamiento.value;
-const descripcionRegalo = $form['descripcion-regalo'].value;
+const $form = document.querySelector("#carta-a-santa");
+$form.onsubmit = validarFormulario;
 
-console.log(nombre)
-console.log(ciudad)
-console.log(comportamiento)
-console.log(descripcionRegalo)
+
+function validarFormulario(event){
+    limpiarErrores()
+    event.preventDefault(); 
+    const $form = document.querySelector("#carta-a-santa");
+
+    const nombre = $form.nombre.value;
+    const ciudad = $form.ciudad.value;
+    const descripcionRegalo = $form['descripcion-regalo'].value;
+
+    const errorNombre = validarNombre(nombre)
+    const errorCiudad = validarCiudad(ciudad)
+    const errorDescripcionRegalo = validarDescripcionRegalo(descripcionRegalo)
+
+    const errores = {
+        nombre: errorNombre,
+        ciudad: errorCiudad,
+        'descripcion-regalo': errorDescripcionRegalo
+    }
+
+    const esExito = manejarErrores(errores) === 0;
+
+    if (esExito){
+        $form.className = 'oculto';
+        document.querySelector('#exito').className = '';
+       
+        let redireccionar = setTimeout(function() {
+            window.location='wishlist.html'
+        }, 5000);
+
+    }
+}
+
+function manejarErrores(errores){
+    const keys = Object.keys(errores);
+    const $errores = document.querySelector('#errores');
+    let cantidadErrores = 0;
+
+    keys.forEach(function(key){
+        const error = errores[key];
+
+        if (error){
+            cantidadErrores ++;
+            $form[key].className = "error";
+
+            let $error = document.createElement('li');
+            $error.id = 'error'
+            $error.innerText = error;
+
+            $errores.appendChild($error);
+
+        }else {
+            $form[key].className = "";
+        }
+    });
+
+    return cantidadErrores
+
+}
+
+function limpiarErrores(){
+    const $errores = document.querySelectorAll('#error');
+    
+    for (let i=0;i<$errores.length;i++){
+        $errores[i].remove();
+    }
+}
+
+
 
 /*
 2.Validar que el nombre sea válido y escribir una prueba
@@ -50,11 +112,11 @@ console.log(descripcionRegalo)
 
 function validarNombre(nombre){
     if (nombre.length === 0){
-        return 'Este campo debe tener al menos un caracter'
+        return 'Debe completar la carta con un Nombre'
     }
 
     if (nombre.length >= 50 ){
-        return 'Este campo debe tener menos de 50 caracteres'
+        return 'El nombre debe tener menos de 50 caracteres'
     }
 
     return ''
@@ -92,9 +154,6 @@ function validarDescripcionRegalo(descripcionRegalo){
     return ''
 }
 
-
-// validarCiudad
-// validarDescripcionRegalo
 
 
 
