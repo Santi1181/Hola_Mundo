@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Tarea 2 - Clase #6</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' >
+    
+</head>
+<body>
+    <h1 id="titulo">Cálculo salario - Integrantes de grupo familiar</h1>
+    <form method="post" name="formulario" id="Tarea2Clase6">
+        
+        <button type="button" id="agregar" >Agregar</button>
+        <button type="button" id="eliminar" >Eliminar</button>
+        <br>
+        <div id="integrantes">
+
+        </div>
+
+        
+        <ul id="errores">
+        </ul>
+
+        <div id="totales" style="display: none">
+            <p>El mayor salario anual es... <em id="mayorAnual"></em></p>
+            <p>El menor salario anual es... <em id="menorAnual"></em></p>
+            <p>El salario anual promedio es... <em id="promedioAnual"></em></p>
+            <p>El salario mensual promedio es... <em id="promedioMensual"></em></p>
+        </div>
+
+        <button type="submit" id="calcular" style="display: none" >Calcular</button>
+        <button type="reset" id="resetear">Resetear</button>
+
+    </form>
+    <script src='tarea2.js'></script>
+    <script src='validaciones2.js'></script>
+    <script src='pruebas2.js'></script>
+    <script src='calculos2.js'></script>
+</body>
+</html>
