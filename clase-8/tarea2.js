@@ -16,47 +16,39 @@ document.querySelector('#eliminar').onclick = function(event) {
     borrarIntegrantesAnteriores();
 }
 
-const $formIntegrantes = document.querySelector("#Tarea2Clase6");
+document.querySelector('#resetear').onclick = resetear;
+
+const $formIntegrantes = document.querySelector("#tarea2-clase6");
 $formIntegrantes.onsubmit = validarFormularioIntegrantes;
 
 function validarFormularioIntegrantes(event){
     limpiarErrores()
     event.preventDefault(); 
-    const $formIntegrantes = document.querySelector("#Tarea2Clase6");
+    const $formIntegrantes = document.querySelector("#tarea2-clase6");
 
     const salariosObtenidos = obtenerSalarios()
 
     const errorSalariosIngresados = validarSalariosIngresados(salariosObtenidos)
 
     const errores = {
-        salarioIntegrante: errorSalariosIngresados
+        'salario-integrante': errorSalariosIngresados
     }
 
     const esExito = manejarErroresIntegrantes(errores) === 0;
 
     if (esExito){
        
-        document.querySelector('#promedioAnual').textContent = calcularPromedio(salariosObtenidos)
-        document.querySelector('#mayorAnual').textContent = calcularMayor(salariosObtenidos)
-        document.querySelector('#menorAnual').textContent = calcularMenor(salariosObtenidos)
-        document.querySelector('#promedioMensual').textContent = calcularPromedioMensual(salariosObtenidos)
+        document.querySelector('#promedio-anual').textContent = calcularPromedio(salariosObtenidos)
+        document.querySelector('#mayor-anual').textContent = calcularMayor(salariosObtenidos)
+        document.querySelector('#menor-anual').textContent = calcularMenor(salariosObtenidos)
+        document.querySelector('#promedio-mensual').textContent = calcularPromedioMensual(salariosObtenidos)
   
         mostrar('#totales')
+        ocultar('#calcular')
+        ocultar('#agregar')
+        ocultar('#eliminar')
     }
-    
 }
-
-// document.querySelector('#calcular').onclick = function(event) {
-//     const salarios = obtenerSalarios()
-        
-//     document.querySelector('#promedioAnual').textContent = calcularPromedio(salarios)
-//     document.querySelector('#mayorAnual').textContent = calcularMayor(salarios)
-//     document.querySelector('#menorAnual').textContent = calcularMenor(salarios)
-//     document.querySelector('#promedioMensual').textContent = calcularPromedioMensual(salarios)
-    
-//     mostrar('#totales')
-// }
-
 
 function manejarErroresIntegrantes(errores){
     const keys = Object.keys(errores);
@@ -68,27 +60,18 @@ function manejarErroresIntegrantes(errores){
 
         if (error){
             cantidadErrores ++;
-            $formIntegrantes[key].className = "error";
-
+         
             let $error = document.createElement('li');
             $error.id = 'error'
             $error.innerText = error;
 
             $errores.appendChild($error);
 
-        }else {
-            $formIntegrantes[key].className = "";
         }
     });
-
     return cantidadErrores
-
 }
 
-
-
-
-document.querySelector('#resetear').onclick = resetear;
 
 function obtenerSalarios(){
     const $salariosObtenidas = document.querySelectorAll('.salarios')
@@ -110,13 +93,13 @@ function crearIntegrante() {
   
     const $label = document.createElement('label');
     $label.textContent = 'Ingrese Salario anual del Integrante # ' + (indice + 1) + ' ' ;
-    $label.id = 'textoIntegrante' + (indice + 1)
+    $label.id = 'texto-integrante' + (indice + 1)
     
     const $salarioAnual = document.createElement('input');
     $salarioAnual.type = 'text';
     $salarioAnual.className = 'salarios';
-    $salarioAnual.id = 'salarioAnualIntegrante' + (indice + 1);
-    $salarioAnual.name = 'salarioIntegrante';
+    $salarioAnual.id = 'salario-anual-integrante' + (indice + 1);
+    $salarioAnual.name = 'salario-integrante';
 
     $div.appendChild($label);
     $div.appendChild($salarioAnual);
@@ -143,7 +126,6 @@ function borrarTodosLosIntegrantes() {
     for (let i = 0; i<$integrante.length;i++){
         $integrante[i].remove();
     }
-    
 }
 
 function mostrar(selector) {
@@ -156,8 +138,11 @@ function ocultar(selector) {
 
 function resetear() {
     borrarTodosLosIntegrantes()
+    limpiarErrores()
     ocultar('#totales')
     ocultar('#calcular')
+    mostrar('#agregar')
+    mostrar('#eliminar')
 }
 
 function limpiarErrores(){
@@ -166,6 +151,5 @@ function limpiarErrores(){
     for (let i=0;i<$errores.length;i++){
         $errores[i].remove();
     }
-    
 }
 

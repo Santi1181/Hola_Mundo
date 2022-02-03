@@ -1,5 +1,3 @@
-
-
 function validarSalariosIngresados(salarios){
     
     for (let i=0;i<salarios.length;i++){
@@ -12,7 +10,7 @@ function validarSalariosIngresados(salarios){
             return 'El salario ingresado se debe cargar en positivo'
             break;
         }
-    
+
         if (!/^\d+$/.test(salarios[i])){
             return 'Solo puede ingresar números para determinar el salario de un integrante de su familia'
             break;
