@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Tarea 1 - Clase #6</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' >
+    
+</head>
+<body>
+    <h1 id="titulo">Calculo edades - Integrantes de grupo familiar</h1>
+    <form method="post" name="formulario" id="Tarea1Clase6">
+
+        <label for="cantidad-integrantes">Ingrese la cantidad de integrantes de su grupo familiar: </label>
+        <input type="text" name="cantidad-integrantes" id="cantidad-integrantes"/>
+        <button type="submit" id="siguiente-paso">Siguiente</button>
+        <br>
+        <br>
+
+        <ul id="errores">
+        </ul>
+
+    </form>
+
+    <form method="post" name="formularioIntegrantes" id="Tarea1Clase6Integrantes">
+
+        <div id="integrantes" name="integrantes" >
+
+        </div>
+
+        <ul id="erroresIntegrantes">
+        </ul>
+
+        <br>
+        <button type="submit" id="calcular" style="display: none">Calcular</button>
+        <button type="reset" id="resetear">Resetear</button>
+
+        <div id="totales" style="display: none">
+            <p>El promedio de edad es... <em id="promedio"></em></p>
+            <p>La menor edad es... <em id="menor"></em></p>
+            <p>La mayor edad es... <em id="mayor"></em></p>
+        </div>
+
+
+    </form>
+
+    <script src='tarea1.js'></script>
+    <script src='validaciones1.js'></script>
+    <script src='pruebas1.js'></script>
+</body>
+</html>
