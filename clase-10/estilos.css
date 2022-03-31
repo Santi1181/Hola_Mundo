@@ -1,0 +1,23 @@
+#cuadro-1{background:red; }
+#cuadro-2{background:blue; }
+#cuadro-3{background:green; }
+#cuadro-4{background:yellow; }
+
+.cuadros{
+    opacity: 0.3;
+    transition:  opacity 1000ms;
+}
+
+.container {
+  min-height: 500px;
+  width: 100%;
+  background: LightGray;
+  display: grid;
+  grid-template-columns: 1fr 1fr ;
+  grid-template-rows: 1fr 1fr ;
+  grid-gap: 10px;
+}
+
+#mensaje {
+    width: 50%;
+}
